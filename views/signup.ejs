@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body>
+        <%- include('common/navigation'); -%>
+        <div class="container">
+            <h2 style="margin-top: 3em">Criar Conta</h2>
+            <% if (typeof errors !== 'undefined' ) { %>
+                <% for(var i=0; i < errors.length; i++) { %>
+                    <div class="alert alert-danger" role="alert"><%= errors[i].msg %></div>
+                <% } %>
+                <br>
+            <% } %>
+            <% if (typeof uniqueErrors !== 'undefined' ) { %>
+                <% if (typeof uniqueErrors.errors.nickName !== 'undefined') { %>
+                    <div class="alert alert-danger" role="alert"><%= uniqueErrors.errors.nickName.message %></div>
+                <% } %>
+                <br>
+            <% } %>
+            <form action="/signup" method="POST">
+                <div class="form-group">
+                    <label for="firstName">Nome</label>
+                    <input type="text" class="form-control" id="firstName" name="firstName" autocomplete="off" required>
+                    <small class="form-text text-muted">Deve ter entre 3 e 32 caracteres.</small>
+                </div>
+                <div class="form-group">
+                    <label for="firstName">Apelido</label>
+                    <input type="text" class="form-control" id="nickName" name="nickName" autocomplete="off" required>
+                    <small class="form-text text-muted">Deve ter entre 3 e 16 caracteres. Apenas letras, números e "_".</small>
+                </div>
+                <div class="form-group">
+                    <label for="password">Senha</label>
+                    <input type="password" class="form-control" id="password" name="password" required>
+                    <small class="form-text text-muted">Precisa conter pelo menos um caractere minúsculo, um caractere maiúsculo, um número e um caractere especial.</small>
+                </div>
+                <div class="form-group">
+                    <label for="confirmPass">Confirmar Senha</label>
+                    <input type="password" class="form-control" id="confirmPass" name="confirmPass" required>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-light">Registrar</button>
+            </form>
+            <p>
+                Já tem uma conta?
+                <br>
+                <a style="text-decoration:none;" href="/login">Entrar</a>
+            </p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center">
+            <div style="margin-top:9em;color:#545454" class="shadow-sm p-4 mb-4 bg-white rounded">
+				<h5  class="readex">De: <%= messageAuthor?.nickName || '*Usuário Inválido*' %></h5>
+            	<p style="word-wrap:break-word"><%= message.content.message %></p>
+			</div>
+			<br>
+			<form action="/message" method="POST">
+				<div class="form-group">
+					<input type="text" readonly class="form-control" id="receiver" name="receiver" value="<%= messageAuthor?.nickName || '*Usuário Inválido*' %>" required>
+				</div>
+				<br>
+				<div class="form-group">
+					<textarea  type="text" class="form-control" id="message" name="message" rows="5" placeholder="Responder..." required></textarea>
+				</div>
+				<br>
+				<button type="submit" class="btn btn-light wide-button">Enviar Resposta</button>
+			</form>
+			<br>
+			<a href="/remove/message/<%= message.messageId %>"><button class="btn btn-danger wide-button">Excluir Mensagem</button></a>
+        </div>
+    </body>
+</html>

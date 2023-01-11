@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center">
+            <h2 style="margin-top:4em" class="readex"><%= user.firstName %> (<%= user.nickName %>)</h2>
+			<br>
+			<p>Posts Publicados: <%= posts.length %></p>
+			<p>Comentários em Posts: <%= comments.length %></p>
+			<% if (typeof posts !== 'undefined' && posts.length > 0) { %>
+				<button style="width:75%" type="button" id="posts-button" data-bs-toggle="collapse" data-bs-target="#posts" aria-expanded="false" aria-controls="posts">Ver Postagens</button>
+				<br>
+				<div id="posts" style="color:black;width:75%;margin: 0 auto" class="list-group shadow-sm p-1 rounded collapse">
+					<% for(let i=posts.length - 1; i >= 0; i--) { %>
+						<a style="color:grey;" href="/show-post/<%= posts[i].postId %>" class="list-group-item list-group-item-action"><%= posts[i].content.title %></a>
+					<% } %>
+				</div>
+            <% } %>
+			<br>
+			<% if (typeof messages !== 'undefined' && messages.length > 0) { %>
+				<button style="width:75%" type="button" id="messages-button" data-bs-toggle="collapse" data-bs-target="#messages" aria-expanded="false" aria-controls="messages">Mensagens Recebidas (<%= messages.length %>)</button><br>
+				<div id="messages" style="color:black;width:75%;margin:0 auto" class="list-group shadow-sm p-1 rounded collapse">
+					<% for(let i=messages.length - 1; i >= 0; i--) { %>
+						<% messages[i].authorNickName = users.filter((user) => user.userId === messages[i].author)[0]?.nickName || '*Usuário Inválido*' %>
+						<a style="color: grey;" href="/show-message/<%= messages[i].messageId %>" class="list-group-item list-group-item-action">Mensagem de: <%= messages[i].authorNickName %></a>
+					<% } %>
+				</div>
+			<% } %>
+			<br>
+			<% if (typeof nickName !== 'undefined' && nickName == user.nickName)  { %>
+				<button type="button" class="btn btn-link">
+					<a href="/profile/<%= user.nickName %>/edit">Editar Perfil</a>
+				</button>
+				<button type="button" class="btn btn-link" data-bs-toggle="modal" data-bs-target="#removeUserConfirmation">
+					Deletar Conta
+				</button>
+				<div class="modal fade" id="removeUserConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeUserConfirmation" aria-hidden="true">
+					<div class="modal-dialog modal-dialog-centered" role="document">
+						<div style="color:black;" class="modal-content">
+							<div class="modal-header">
+								<h5 class="modal-title readex" id="removeUserConfirmationTitle">Espera aí...</h5>
+								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span>
+								</button>
+							</div>
+							<div class="modal-body readex">
+								Você tem certeza que quer excluír sua <b>CONTA</b>?
+								<br>
+								Suas postagens e mensagens não serão excluídas, mas serão exibidos de forma anônima.
+								<br>
+								Essa ação é <b>PERMANENTE</b> e não poderá ser desfeita!
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+								<a href="/profile/<%= user.nickName %>/remove">
+									<button type="button" class="btn btn-danger">Excluír</button>
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+			<% } %>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container">
+			<h2 style="margin-top:4em" class="readex">Editar Perfil</h2>
+			<% if (typeof errors !== 'undefined') { %>
+				<% for(let i=0; i < errors.length; i++) { %>
+					<div class="alert alert-danger" role="alert">
+						<%= errors[i].msg %>
+					</div>
+				<% } %>
+			<% } %>
+			<% if (typeof uniqueErrors !== 'undefined') { %>
+				<% if (typeof uniqueErrors.errors.username !== 'undefined') { %>
+					<div class="alert alert-danger" role="alert">
+						<%= uniqueErrors.errors.username.message %>
+					</div>
+				<% } %>
+				<br>
+			<% } %>
+			<form action="/profile/<%= nickName %>/edit" method="POST">
+				<div class="form-group">
+					<label for="firstName">Nome</label>
+					<input type="text" class="form-control" id="firstName" name="firstName" value="<%= user.firstName %>" required>
+				</div>
+				<div class="form-group">
+					<label for="nickName">Apelido</label>
+					<input type="text" class="form-control" id="nickName" name="nickName" value="<%= user.nickName %>" required>
+				</div>
+				<br>
+				<button type="submit" class="btn btn-light">Salvar</button>
+			</form>
+        </div>
+    </body>
+</html>

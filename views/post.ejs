@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center">
+            <h2 style="margin-top:4em" class="readex">Criar nova Postagem</h2>
+            <br>
+            <% if (typeof errors !== 'undefined') { %>
+				<% for(let i=0; i < errors.length; i++) { %>
+					<div class="alert alert-danger" role="alert">
+						<%= errors[i].msg %>
+					</div>
+				<% } %>
+			<% } %>
+            <form action="/post" method="POST">
+  				<div class="form-group">
+    				<input type="text" class="form-control" id="postTitle" name="postTitle" placeholder="Título" autocomplete="off" autofocus required>
+  				</div>
+			<br>
+  				<div class="form-group">
+    				<textarea  type="text" class="form-control" id="postMessage" name="postMessage" rows="8" placeholder="Mensagem"></textarea>
+  				</div>
+				<br>
+  				<button type="submit" class="btn btn-light wide-button">Publicar</button>
+			</form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+        <div style="margin-top: 10em; margin-bottom: 2em" class="container">
+            <% if (isAuthenticated) { %>
+                <h2 class="readex">
+                    Olá,
+                    <a class="readex" style="color:rgb(113, 166, 228); text-decoration:none;" href="/profile/<%= nickName %>"><%= firstName %></a>
+                </h2>
+            <% } else { %>
+                <h2 class="readex">Bem Vindo!</h2>
+            <% } %>
+            <% if (typeof posts !== 'undefined') { %>
+                <div style="color: black" class="list-group shadow-sm p-1 rounded content-center">
+                    <h2 class="readex">Atualmente há <%- posts.length %> postage<%- posts.length > 1 ? 'ns' : 'm' %>:</h2>
+                    <% for (let i=posts.length - 1; i>=0; i--) { %>
+                        <a href="/show-post/<%= posts[i].postId %>" class="list-group-item list-group-item-action"><%= posts[i].content.title %></a>
+                    <% } %>
+                </div>
+            <% } %>
+        </div>
+    </body>
+</html>

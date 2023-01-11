@@ -1,0 +1,122 @@
+#chat-button,
+#users-button,
+#messages-button,
+#posts-button,
+.wide-button {
+  font-size: 18px;
+  border: 0;
+  padding: 12px 0;
+  width: 100%;
+  border-radius: 0 0 2px 2px;
+}
+
+body {
+  background: linear-gradient(#fff, #a5b5cc);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: #7c7c7c;
+}
+
+.readex {
+  font-family: 'Readex Pro', sans-serif;
+}
+
+nav {
+  background-color: #fff;
+}
+
+.content-center {
+  width: 100%;
+  display: block;
+  margin: 0 auto;
+}
+
+#chat {
+  max-width: 95%;
+  margin: 3vw auto;
+  box-shadow: 1px 3px 5px rgba(0, 0, 0, 0.05);
+}
+
+#chat-window {
+  height: 50vh;
+  overflow: auto;
+  background: white;
+}
+
+#users-button,
+#messages-button,
+#posts-button {
+  background: #7e92b2;
+  color: #fff;
+}
+
+#posts-button {
+  background: #fff;
+  color: #7e92b2;
+}
+
+#chat-button {
+  background: #a4d8c3;
+  color: #515151;
+}
+
+#output p {
+  padding: 14px 0px;
+  margin: 0 20px;
+  border-bottom: 1px solid #e9e9e9;
+  color: #555;
+}
+
+#feedback p {
+  color: #aaa;
+  padding: 14px 0px;
+  margin: 0 20px;
+}
+
+#message,
+#handle {
+  padding: 10px 20px;
+  box-sizing: border-box;
+  background-color: #f7f7f7;
+  display: block;
+  width: 100%;
+  border: 1px solid #f7f7f7;
+}
+
+#signInContainer {
+  height: 100%;
+  padding: 1%;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.green-button {
+  background-color: #a4d8c3;
+}
+
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  margin: auto;
+}
+
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  font-size: 16px;
+}
+
+.form-signin input[type="text"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center">
+			<h2 style="margin-top:2em;text-align:center" class="readex">Bate Papo</h2>
+			<div id="chat">
+				<button type="button" id="users-button" data-bs-toggle="collapse" data-bs-target="#users" aria-expanded="false" aria-controls="users">Mostrar Usuários Online</button>
+				<ul style="color:#515151;" class="collapse list-group-flush list-group" id="users"></ul>
+				<br><br>
+				<div id="chat-window">
+					<div id="output" style="text-align:left;"></div>
+					<div id="feedback"></div>
+				</div>	
+				<br>
+				<form>
+					<a hidden id="handle"><%= nickName %></a>
+					<input id="message" autocomplete="off" placeholder="Diga alguma coisa..." />
+					<button type="submit" id="chat-button">Enviar</button>
+				</form>
+		</div>
+		<script src="/socket.io/socket.io.js"></script>
+		<script src="/js/chat.js"></script>
+    </body>
+</html>

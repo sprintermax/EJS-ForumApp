@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center" style="margin-top:6em">
+            <a style="color:black" href="/">
+				<button style="float:left" type="button" class="btn btn-default btn-lg">
+					<i class="fas fa-arrow-left"> Voltar</i>
+				</button>
+			</a>
+			<br>
+			<h2 style="margin-top:1em" class="readex"><%= post.content.title %></h2>
+			<% post.nickName = users.filter((user) => user.userId === post.author)[0]?.nickName || null %>
+			<h4 class="readex m-3">publicado por: 
+				<% if (post.nickName) { %>
+					<a style="color:rgb(113, 166, 228);text-decoration:none;"href="/profile/<%= post.nickName %>"><%= post.nickName %></a>
+				<% } else { %>
+					<a style="color:rgb(221, 132, 132);text-decoration:none;">*Usuário Inválido*</a>
+				<% } %>
+			</h4>
+			<div style="color:#545454;" class="shadow-sm p-4 mb-4 bg-white rounded">
+				<p style="word-wrap:break-word; white-space: pre-wrap; text-align:left;"><%= post.content.message %></p>
+			</div>
+			<% if (isAuthenticated) { %>
+				<form action="/comment/<%= post.postId %>" method="POST">
+					<div class="form-group">
+						<textarea class="shadow-sm form-control" id="commentMessage" name="commentMessage" rows="2" placeholder="Escreva um comentário." required></textarea>
+					</div>
+					<br>
+					<button type="submit" class="btn green-button wide-button">Publicar Comentário</button><br><br>
+					<% if (nickName === post.nickName) { %>
+						<button type="button" class="btn btn-danger wide-button" data-bs-toggle="modal" data-bs-target="#removeConfirmation">Excluír Post</button>
+						<div style="color:black;" class="modal fade" id="removeConfirmation" tabindex="-1" role="dialog" aria-labelledby="removeConfirmationTitle" aria-hidden="true">
+  							<div class="modal-dialog modal-dialog-centered" role="document">
+    							<div class="modal-content">
+      								<div class="modal-header">
+        								<h5 class="modal-title readex" id="removeConfirmationTitle">Espere aí...</h5>
+        								<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          									<span aria-hidden="true">&times;</span>
+        								</button>
+      								</div>
+      								<div class="modal-body readex">
+        								Você tem certeza que quer excluír esse post?
+										<br>
+										Essa ação é <b>PERMANENTE</b> e não poderá ser desfeita!
+      								</div>
+      								<div class="modal-footer">
+        								<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        								<a href="/remove/<%= post.postId %>"><button type="button" class="btn btn-danger">Excluír</button></a>
+      								</div>
+    							</div>
+  							</div>
+						</div>
+					<% } %>
+				</form>
+			<% } %>
+			<br>
+			<% if (typeof comments !== 'undefined') { %>
+				<ul>
+					<% for(let i=0 ;i < comments.length;i++) { %>
+					<% comments[i].nickName = users.filter((user) => user.userId === comments[i].author)[0]?.nickName || null %>
+						<li style="text-align:left;">
+							<% if (comments[i].nickName) { %>
+								<a style="color:rgb(13, 87, 172);text-decoration:none;"href="/profile/<%= comments[i].nickName %>"><%= comments[i].nickName %>:</a>
+							<% } else { %>
+								<a style="color:rgb(167, 52, 52);text-decoration:none;">*Usuário Inválido*:</a>
+							<% } %>
+							<a style="white-space: pre-wrap;"><%= comments[i].content.message %></a>
+							<% if(isAuthenticated) { %>
+								<% if (nickName === comments[i].nickName) { %>
+									<br>
+									<a type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#removeComment_<%= comments[i].commentId %>">Excluír Comentário</a>
+									<div style="color:black;" class="modal fade" id="removeComment_<%= comments[i].commentId %>" tabindex="-1" role="dialog" aria-labelledby="removeCommentTittle" aria-hidden="true">
+										<div class="modal-dialog modal-dialog-centered" role="document">
+											<div class="modal-content">
+      											<div class="modal-header">
+        											<h5 class="modal-title readex" id="removeCommentTittle">Espere um segundo...</h5>
+        											<button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          												<span aria-hidden="true">&times;</span>
+        											</button>
+      											</div>
+      											<div class="modal-body readex">
+        											Você tem certeza que quer excluír esse comentário?
+													<br>
+													Essa ação é permanente e não poderá ser desfeita!
+      											</div>
+      											<div class="modal-footer">
+        											<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+        											<a href="/comment/remove/<%= comments[i].commentId %>"><button type="button" class="btn btn-danger">Excluír</button></a>
+      											</div>
+    										</div>
+  										</div>
+									</div>
+								<% } %>
+							<% } %>
+							<br>
+							<br>
+						</li>
+					<% } %>
+				</ul>
+			<% } %>
+        </div>
+    </body>
+</html>

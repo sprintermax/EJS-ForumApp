@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include('common/head'); -%>
+    </head>
+    <body class="text-center">
+        <%- include('common/navigation'); -%>
+		<div class="container content-center">
+            <h2 style="margin-top:4em" class="readex">Enviar Mensagem</h2>
+			<br>
+			<% if (typeof msgSuccess !== 'undefined') { %>
+				<div class="alert alert-success" role="alert">
+					Mensagem enviada para <%= receiver %>
+				</div>
+			<% } %>
+			<% if (typeof errors !== 'undefined') { %>
+				<% for(let i=0;i < errors.length; i++) { %>
+					<div class="alert alert-danger" role="alert">
+						<%= errors[i].msg %>
+					</div>
+				<% } %>
+			<% } %>
+			<% if (typeof notFound !== 'undefined') { %>
+			<div class="alert alert-danger" role="alert">
+				<%= notFound %>
+			</div>
+		<% } %>
+		<form action="/message" method="POST">
+			<div class="form-group">
+				<input type="text" class="form-control" id="receiver" name="receiver" placeholder="Destinatário..." autocomplete="off" autofocus required>
+			</div>
+			<br>
+			<div class="form-group">
+				<textarea  type="text" class="form-control" id="message" name="message" rows="8" required></textarea>
+			</div>
+			<br>
+			<button type="submit" class="btn btn-light wide-button">Enviar</button>
+		</form>
+        </div>
+    </body>
+</html>
